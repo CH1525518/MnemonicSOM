@@ -46,7 +46,7 @@ def convert_to_active_unit_matrix(image, som_width, som_height):
 
 			active_unit_matrix[c, l] = (1 if is_active_unit(image, x, y, int(unit_width), int(unit_height)) else 0)
 
-	return active_unit_matrix
+	return active_unit_matrix.T
 
 def is_out_of_bounds(array, x, y):
 	return x < 0 or y < 0 or array.shape[0] <= x or array.shape[1] <= y
