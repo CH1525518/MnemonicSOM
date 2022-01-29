@@ -24,12 +24,16 @@ def mnemonics_test():
 	plt.imshow(np.swapaxes(active_unit_matrix, 0, 1))
 	plt.show()
 
-def som_test(initial_learning_rate = .1, learning_rate_decay = 10, initial_radius = 1, radius_decay = 10):
-	active_unit_matrix, distance_matrix = input_utils.load_mnemonic_image("mnemonics/stick_figure.png", 50, 50)
+def som_test(input_image = 'stick_figure.png', input_dataset = "chainlink",
+             som_width = 50, som_height = 50,
+	     initial_learning_rate = .1, learning_rate_decay = 10, initial_radius = 1, radius_decay = 10, 
+             initial_radius = 1, radius_decay = 10, n_epochs = 1):
+	image_path = '../mnemonics/'
+	active_unit_matrix, distance_matrix = input_utils.load_mnemonic_image(image_path+input_image, som_width, som_height)
 
 	print("reading input")
 	#X, y = input_utils.read_dataset("datasets/", "chainlink")
-	X, y = input_utils.read_dataset("datasets/", "10clusters")
+	X, y = input_utils.read_dataset("../datasets/", input_dataset)
 	print("reading input done")
 
 	print("generating som")
