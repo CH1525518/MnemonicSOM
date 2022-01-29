@@ -150,8 +150,8 @@ class MnemonicSOM:
 		ret["vec_dim"] = self.input_lenght
 
 		ret["arr"] = []
-		for x in range(len(self.units)):
-			for y in range(len(self.units[0])):
+		for y in range(len(self.units)):
+			for x in range(len(self.units[0])):
 				if self.units[x][y]:
 					ret["arr"].append(self.units[x][y].get_weights())
 				else:
