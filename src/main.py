@@ -25,11 +25,11 @@ def mnemonics_test():
 	plt.show()
 
 def som_test(initial_learning_rate = .1, learning_rate_decay = 10, initial_radius = 1, radius_decay = 10):
-	active_unit_matrix, distance_matrix = input_utils.load_mnemonic_image("mnemonics/stick_figure.png", 25, 25)
+	active_unit_matrix, distance_matrix = input_utils.load_mnemonic_image("mnemonics/stick_figure.png", 50, 50)
 
 	print("reading input")
-	X, y = input_utils.read_dataset("datasets/", "chainlink")
-	#X, y = input_utils.read_dataset("datasets/", "10clusters")
+	#X, y = input_utils.read_dataset("datasets/", "chainlink")
+	X, y = input_utils.read_dataset("datasets/", "10clusters")
 	print("reading input done")
 
 	print("generating som")
@@ -44,7 +44,7 @@ def som_test(initial_learning_rate = .1, learning_rate_decay = 10, initial_radiu
 	#som.show_som2(X)
 
 	print("started training")
-	som.train(X, 1)
+	som.train(X, 10)
 	print("training done")
 
 	#som.show_som(X, y)
@@ -54,18 +54,32 @@ def som_test(initial_learning_rate = .1, learning_rate_decay = 10, initial_radiu
 
 def main():
 	#mnemonics_test()
-	X, y = input_utils.read_dataset("datasets/", "chainlink")
+	#X, y = input_utils.read_dataset("datasets/", "chainlink")
+	X, y = input_utils.read_dataset("datasets/", "10clusters")
 
 	# chainlink
 	# learning rate 1-2
 	# learning rate decay 5
+	# initial radius 1-2
+	# initial radius 10
 
-	som = som_test(initial_learning_rate = 1.5, learning_rate_decay = 5, initial_radius = 1, radius_decay = 10)
-	
-	#plt.title('Learning rate decay = 5')
+	# 10clusters
+	# learning rate 2
+	# learning rate decay 5
+	# initial radius 2
+	# initial radius 10
+
+	# Note: with more active units (larger size of the unitmatrix), the possabilty for holes in the visual representation of the network increases
+	# due to the units being colored according to their fireing (this could be fixed using a different coloring technique but since this is not
+	# part of the assignment, there is no need to do that). This effect however has lead to the realization that the radius_decay greatly influences
+	# the shape of the SOM in terms of the size of the clusters. Larger radius decay leads to larger clusters while smaller radius decay leads to small
+	# clusters with most of the units not being used.
+
+	som = som_test(initial_learning_rate = 2.5, learning_rate_decay = 5, initial_radius = 2, radius_decay = 10)
+	plt.title('radius_decay = 2.5')
 	som.show_som(X, y)
 
-	som.export_weightlist()
+	#som.export_weightlist()
 
 if __name__ == "__main__":
 	main()
