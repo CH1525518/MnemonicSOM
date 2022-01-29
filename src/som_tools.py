@@ -32,6 +32,9 @@ class SOMUnit:
 	def _learning_rate(self, epoch):
 		return self.initial_learning_rate * math.exp(-(epoch)/(self.learning_rate_decay))
 
+	def get_weights(self):
+		return self.weights
+
 class MnemonicSOM:
 
 	def __init__(self, active_unit_matrix, distance_matrix, input_lenght, initial_learning_rate = .1, learning_rate_decay = 10, initial_radius = 1, radius_decay = 10):
@@ -42,6 +45,8 @@ class MnemonicSOM:
 		self.radius_decay = (radius_decay if radius_decay != 0 else 1)
 		self.learning_rate_decay = (learning_rate_decay if learning_rate_decay != 0 else 1)
 		self.initial_learning_rate = initial_learning_rate
+
+		self.input_lenght = input_lenght
 
 		self.units = []
 
@@ -109,7 +114,7 @@ class MnemonicSOM:
 
 		som_image = som_image/np.max(som_image)
 
-		plt.imshow(som_image)
+		plt.imshow(np.clip(som_image, a_min = 0, a_max = 1))
 		plt.show()
 
 	# testing WIP
@@ -124,6 +129,36 @@ class MnemonicSOM:
 		plt.imshow(np.clip(som_image, a_min = 0, a_max = 1))
 		plt.show()
 
+	# testing WIP
+	def show_som_multiple(self, X, y, ax):
+		som_image = np.full((len(self.units), len(self.units[0])), 0)
+
+		for vec, label in zip(X, y):
+			unit = self._get_best_unit(vec)
+
+			som_image[unit.y, unit.x] = label
+
+		som_image = som_image/np.max(som_image)
+
+		ax.imshow(np.clip(som_image, a_min = 0, a_max = 1))
+
+	def export_weightlist(self):
+		ret = {}
+
+		ret["xdim"] = len(self.units)
+		ret["ydim"] = len(self.units[0])
+		ret["vec_dim"] = self.input_lenght
+
+		ret["arr"] = []
+		for x in range(len(self.units)):
+			for y in range(len(self.units[0])):
+				print(x, y)
+				if self.units[x][y]:
+					ret["arr"].append(self.units[x][y].get_weights())
+				else:
+					ret["arr"].append(np.full(self.input_lenght, -np.inf))
+
+		return ret
 
 class DistanceMatrix:
 
