@@ -1,17 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import cv2
 
 import input_utils
 import som_tools
 
 def mnemonics_test():
 	img = cv2.imread("mnemonics/stick_figure.png", cv2.IMREAD_UNCHANGED)
-	img = convert_to_binary(img)
+	img = input_utils.convert_to_binary(img)
 
-	active_unit_matrix = convert_to_active_unit_matrix(img, 20, 20)
+	active_unit_matrix = input_utils.convert_to_active_unit_matrix(img, 50, 50)
 
-	distance_matrix = calculate_distance_matrix(active_unit_matrix)
+	distance_matrix = input_utils.calculate_distance_matrix(active_unit_matrix)
 
 	x = distance_matrix.get_active_units()[118][0]
 	y = distance_matrix.get_active_units()[118][1]

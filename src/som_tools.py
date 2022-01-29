@@ -152,7 +152,6 @@ class MnemonicSOM:
 		ret["arr"] = []
 		for x in range(len(self.units)):
 			for y in range(len(self.units[0])):
-				print(x, y)
 				if self.units[x][y]:
 					ret["arr"].append(self.units[x][y].get_weights())
 				else:
