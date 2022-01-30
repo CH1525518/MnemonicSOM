@@ -27,7 +27,7 @@ def mnemonics_test():
 def som_test(input_image = 'stick_figure.png', input_dataset = "chainlink",
              som_width = 50, som_height = 50,
 	     initial_learning_rate = .1, learning_rate_decay = 10, initial_radius = 1, radius_decay = 10, 
-             initial_radius = 1, radius_decay = 10, n_epochs = 1):
+             initial_radius = 1, radius_decay = 10, n_epochs = 10):
 	image_path = '../mnemonics/'
 	active_unit_matrix, distance_matrix = input_utils.load_mnemonic_image(image_path+input_image, som_width, som_height)
 
@@ -48,7 +48,7 @@ def som_test(input_image = 'stick_figure.png', input_dataset = "chainlink",
 	#som.show_som2(X)
 
 	print("started training")
-	som.train(X, 10)
+	som.train(X, n_epochs)
 	print("training done")
 
 	#som.show_som(X, y)
